@@ -120,19 +120,72 @@ class LinkedList {
   /** insertAt(idx, val): add node w/val before idx. */
 
   insertAt(idx, val) {
-
+    let newNode = new Node(val);
+    if (!this.head){
+      this.head = newNode;
+      this.tail = newNode;
+      this.length=1;
+      return;
+    }
+    if (idx===this.length){
+      newNode.next = null;
+      this.tail.next = newNode;
+      this.tail = newNode;
+      this.length+=1;
+      return;
+    }
+    let count = 0;
+    let currentNode = this.head;
+    while(currentNode){
+      
+      if (count+1===idx){
+        newNode.next = currentNode.next;
+        currentNode.next = newNode;
+        this.length+=1;
+        return;
+      }
+      currentNode = currentNode.next;
+      count++;
+    }
   }
 
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
-
+    if (this.length < 1){
+      return undefined;
+    }
+    if (this.length===1){
+      this.head = null;
+      this.tail = null;
+      this.length=0;
+      return;
+    }
+    let count=0;
+    let currentNode = this.head;
+    while(currentNode){
+      if (count+1 === idx){
+        currentNode.next = currentNode.next.next;
+        return;
+      }
+      currentNode = currentNode.next;
+      count++;
+    }
   }
 
   /** average(): return an average of all values in the list */
 
   average() {
-    
+    if (!this.head){
+      return 0;
+    }
+    let sum = 0;
+    let currentNode = this.head;
+    while (currentNode){
+      sum+=currentNode.val;
+      currentNode = currentNode.next;
+    }
+    return sum/this.length;
   }
 }
 
