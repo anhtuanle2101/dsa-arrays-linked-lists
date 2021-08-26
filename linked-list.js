@@ -18,6 +18,17 @@ class LinkedList {
     for (let val of vals) this.push(val);
   }
 
+  traverse(){
+    if (!this.head){
+      return;
+    }
+    let currentNode = this.head;
+    while(currentNode){
+      console.log(currentNode);
+      currentNode = currentNode.next;
+    }
+  }
+
   /** push(val): add new value to end of list. */
 
   push(val) {
@@ -127,6 +138,12 @@ class LinkedList {
       this.length=1;
       return;
     }
+    if (idx===0){
+      newNode.next = this.head;
+      this.head = newNode;
+      this.length += 1;
+      return;
+    }
     if (idx===this.length){
       newNode.next = null;
       this.tail.next = newNode;
@@ -137,7 +154,6 @@ class LinkedList {
     let count = 0;
     let currentNode = this.head;
     while(currentNode){
-      
       if (count+1===idx){
         newNode.next = currentNode.next;
         currentNode.next = newNode;
@@ -161,11 +177,21 @@ class LinkedList {
       this.length=0;
       return;
     }
+    if (idx===0){
+      const temp = this.head;
+      this.head = this.head.next;
+      temp.next = null;
+      this.length -= 1;
+      return;
+    }
     let count=0;
     let currentNode = this.head;
     while(currentNode){
       if (count+1 === idx){
         currentNode.next = currentNode.next.next;
+        if (idx === this.length-1){
+          this.tail = currentNode.next;
+        }
         return;
       }
       currentNode = currentNode.next;
