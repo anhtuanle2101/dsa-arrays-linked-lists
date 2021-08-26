@@ -13,6 +13,7 @@ class DoubleLinkedList{
       this.length = 0;
       for(let val of vals) this.push(val);
   }
+
   traverse(){
     if (!this.head){
       return;
@@ -21,6 +22,28 @@ class DoubleLinkedList{
     while(currentNode){
       console.log(currentNode.val);
       currentNode = currentNode.prev;
+    }
+  }
+
+  reverse(){
+    const tempNode = this.head;
+    this.head = this.tail;
+    this.tail = tempNode;
+    let currentNode = this.head;
+    while(currentNode){
+      if (currentNode.next === null){
+        currentNode.next = currentNode.prev;
+        currentNode.prev = null;
+      }else
+      if (currentNode.prev === null){
+        currentNode.prev = currentNode.next;
+        currentNode.next = null;
+      }else{
+        const temp = currentNode.next;
+        currentNode.next = currentNode.prev;
+        currentNode.prev = temp;
+      }
+      currentNode = currentNode.next;
     }
   }
 
