@@ -213,6 +213,50 @@ class LinkedList {
     }
     return sum/this.length;
   }
+
+  // pivot(): Pivot the nodes around the val
+  pivot(val){
+    let pivotNode = new Node(val);
+
+    let currentNode = this.head;
+
+    if (!currentNode){
+      return;
+    }
+    let arr = []
+    while (currentNode && currentNode.val<val){
+      arr.push(currentNode.val);
+      this.head = this.head.next;
+    }
+    if (this.length===1 && currentNode.val<val){
+      arr.push(currentNode.val);
+      this.head = null;
+      this.tail = null;
+      this.length = 0;
+    }
+    while (currentNode.next){
+      if(currentNode.next.val < val){
+        arr.push(currentNode.next.val);
+        currentNode.next = currentNode.next.next;
+        this.length--;
+      }else{
+        currentNode = currentNode.next;
+      }
+    }
+    
+    for(let i = arr.length-1;i>=0;i--){
+      const newNode = new Node(arr[i]);
+      if (!this.head){
+        this.head = newNode;
+        this.tail = newNode;
+        this.length = 1;
+      }else{
+        newNode.next = this.head;
+        this.head = newNode;
+        this.length++;
+      }
+    }
+  }
 }
 
 module.exports = LinkedList;

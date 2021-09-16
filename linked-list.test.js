@@ -146,3 +146,14 @@ describe("average", function() {
     expect(lst.average()).toBe(0);
   });
 });
+
+describe("pivot", function(){
+  it("pivot around a value", function(){
+    let lst = new LinkedList([7, 6, 2, 3, 9, 1, 1]);
+    lst.pivot(5);
+    expect(lst.length).toBe(7);
+    expect(lst.head.val).toBe(2);
+    expect(lst.head.next.val).toBe(3);
+    expect(lst.head.next.next.val).toBe(1);
+  })
+})
